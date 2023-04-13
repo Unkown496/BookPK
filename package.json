@@ -2,7 +2,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.3.0-alpha3",
-    "bootstrap-icons": "^1.10.4"
+    "bootstrap-icons": "^1.10.4",
+    "handlebars-loader": "^1.7.3"
   },
   "scripts": {
     "start": "webpack serve",
@@ -14,8 +15,8 @@
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "html-webpack-pug-plugin": "^4.0.0",
     "postcss-loader": "^7.2.4",
+    "pug-plugin": "^4.9.7",
     "sass": "^1.61.0",
     "sass-loader": "^13.2.2",
     "style-loader": "^3.3.2",

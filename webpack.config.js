@@ -2,11 +2,14 @@
 
 // Картинки 600/300
 
-const path = require('path')
-const autoprefixer = require('autoprefixer')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin'); 
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
 
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'src', 'data.json'), 'utf-8'));
+
+console.log(data);
 module.exports = {
   mode: 'development',
   entry: './src/js/main.js',
@@ -24,21 +27,31 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: "./src/index.html",
-      title: "Книга",
-      templateParameters: {
-        'headerContent': `not yet`,
-        'footerContent': `
-          <div class="d-flex">
-            <label for="pageRange" class="form-label">Example range</label>
-            <input type="range" class="form-range" id="pageRange" step="1">
-          </div>
-        `
-      }
+      template: "./src/index.pug",
+      // title: "Книга",
+      // templateParameters: {
+      //   'headerContent': `not yet`,
+      //   'footerContent': `
+      //     <div class="d-flex">
+      //       <label for="pageRange" class="form-label">Example range</label>
+      //       <input type="range" class="form-range" id="pageRange" step="1">
+      //     </div>
+      //   `
+      // }
     }),
   ],
   module: {
-    rules: [{
+    rules: [
+      {
+        test: /\.pug$/,
+        loader: '@webdiscus/pug-loader',
+        options: {
+          data: data,
+          method: 'render',
+          pretty: true
+        }
+      },
+      {
         test: /\.(png|jpg|jpeg|gif)$/i,
         use: [
           {

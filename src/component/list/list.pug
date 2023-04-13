@@ -1,0 +1,17 @@
+mixin list-item(active=false, disabled=false, action=false, color)
+    -
+        let actives = active ? "active": '';
+        let disableds = disabled ? 'disabled': '';
+        let actions = action ? 'list-group-item-action': '';
+        let colors = !!color ? `list-group-item-${color}`: '';
+        let itemStates = `${actions} ${actives} ${disableds}`;
+
+    li.list-group-item(class=(itemStates+colors).trim())&attributes(attributes)
+        block
+mixin list(...types)
+    -
+        let classes = []
+        let states = types.forEach(type => classes.push(`list-group-${type}`))
+        classes.join(' ');
+    ul.list-group(class=classes)
+        block
