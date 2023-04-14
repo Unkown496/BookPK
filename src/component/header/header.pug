@@ -8,11 +8,11 @@ mixin header-sidebar
                 div.flex-fill
                     p Вы на
                     +list-item(true, false, false, "info").p-2
-                        span Оглавление
-                    +list('numbered', 'flush')
-                        each page in ["Основные", "Дополнительные"]
-                            +list-item
-                                a.link=page
+                        span#page-current
+                    +list('numbered', 'flush')#navigate-links
+                        each page in allPages
+                            +list-item(data-page=page.link)
+                                a.link.header-link.text-info(href=page.link, data-navigo)=page.text
                 div
                     +list-item
                         p.mb-0 Сделано

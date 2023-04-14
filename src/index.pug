@@ -2,18 +2,55 @@ extends ./component/layouts/default
 
 block vars
     - let title = "Книга"
+    - 
+        let pages = [
+            {   
+                link: "/",
+                text: "Главная"
+            },
+            {
+                active: true,
+                link: "/test", 
+                text: "test"
+            }
+        ];
+        let allPages = [
+            {
+                text: "Главная",
+                link: "/",
+            },
+            {
+                text: "test",
+                link: "/test",
+            }
+        ]
 
 //- block header
 block main
+    .d-none#page-storage
+        div#index
+            +container-fluid    
+                .col-12
+                    h3 Главная
+                .col-12
+                    p Тут должен быть текст, примийте меры
+        +page("test", "тест", "test", pages)
+            p test
+            
+        +page("err")
+            p Проверьте правильность запрашемоевого пути
+
     +container-fluid
-        .col-12.p-3
-            h3 Название
-        .col-12
-            h5 Содержание
-            +list('numbered', 'flush')
-                each page in ["Основные", "Дополнительные"]
-                    +list-item
-                        a.link(href="./test")=page
+        //- .col-12.p-3
+        //-     h3 Название
+        //- .col-12
+        //-     h5 Содержание
+            //- +list('numbered', 'flush')
+            //-     each page in ["Основные", "Дополнительные"]
+            //-         +list-item
+            //-             a.link(href="/test", data-navigo)=page
+        .col-12#page-content
+        
             
 
 
