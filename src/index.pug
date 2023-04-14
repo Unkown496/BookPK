@@ -24,6 +24,10 @@ block vars
                 link: "/test",
             }
         ]
+        let newPage = [
+            {},
+            {}
+        ]
 
 //- block header
 block main
@@ -36,7 +40,10 @@ block main
                     p Тут должен быть текст, примийте меры
         +page("test", "тест", "test", pages)
             p test
-            
+        
+        +page("1", "Какое-то название", "Какое-то текст", allPages)
+            p.text-danger test
+
         +page("err")
             p Проверьте правильность запрашемоевого пути
 
