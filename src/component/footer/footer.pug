@@ -1,8 +1,8 @@
 mixin footer
-    footer
+    footer.d-none
         nav.navbar.bg-secondary.p-2
             +container-fluid
                 .col-12.d-flex.flex-column.align-items-center
                     +range("page-range")(max=10, min=1)
-                        span / 10
+                        span#max-page 
         

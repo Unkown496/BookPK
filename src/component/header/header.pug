@@ -3,19 +3,22 @@ mixin header-sidebar
         +offcanvas-header
             h5.offcanvas-title Страницы
             +btn-close
-        +offcanvas-body.py-2
+        +offcanvas-body.overflow-x-hidden.py-2
             .d-flex.flex-column.h-100
                 div.flex-fill
                     p Вы на
-                    +list-item(true, false, false, "info").p-2
-                        span#page-current
-                    +list('numbered', 'flush')#navigate-links
-                        each page in allPages
-                            +list-item(data-page=page.link)
-                                a.link.header-link.text-info(href=page.link, data-navigo)=page.text
+
+                    +list-item(true, false, false, "info")(data-bs-toggle="collapse", data-bs-target="#list-pages-sidebar", type="button").d-flex.p-2
+                        span.d-block.w-100.animate__animated#page-current
+                        i.bi.bi-caret-down-fill
+                    .collapse.show#list-pages-sidebar
+                        +list('numbered', 'flush')#navigate-links
+                            each page in allPages
+                                +list-item(data-page=page.link)
+                                    a.link.header-link.text-info(href=page.link, data-navigo)=page.text
                 div
                     +list-item
-                        p.mb-0 Сделано
+                        p.mb-0 Сделано Мазанченко Дмитрий, Ляхов Тимур, Елизарьев Захар, Чайкин Никита 37Исбпл
 
 
 mixin header()

@@ -1,12 +1,18 @@
 mixin page(pathName=undefined, pageName=undefined, title=undefined, contentPages=[])
     .page(id="page-"+pathName, data-name=pageName)
         +container-fluid
+            .col-12.my-2
+                button.btn(onclick='history.back()')
+                    i.bi.bi-caret-left-fill
+                    |   Вернутся назад
+                h5#page-title=title
             .col-12
-                h5=title
-            .col-12
-                +list('numbered', 'flush')
-                    each page in contentPages
-                        +list-item(page.active)
-                            a.link.text-info(href=page.link data-navigo)=page.text
-            .col-12
+                .d-grid.gap-2
+                    button.btn.btn-outline-primary(data-bs-toggle="collapse", data-bs-target="#list-pages")#current-page
+                .collapse#list-pages
+                    +list('numbered', 'flush')
+                        each page in contentPages
+                            +list-item(page.active)(data-link=page.link)
+                                a.link.text-info(href=page.link data-navigo)=page.text
+            .col-12.mt-3
                 block

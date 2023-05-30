@@ -3,6 +3,7 @@ bsOffcanvases.forEach(sidebar => {
     sidebar.addEventListener('show.bs.offcanvas', () => {
         document.querySelector('main').classList.add('z-n1');
         document.querySelector('footer').classList.add('z-n1');
+        sidebar.querySelector(".collapse").classList.add("show");
     });
     sidebar.addEventListener('hidden.bs.offcanvas', () => {
         document.querySelector('main').classList.remove('z-n1');

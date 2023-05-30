@@ -13,5 +13,5 @@ mixin list(...types)
         let classes = []
         let states = types.forEach(type => classes.push(`list-group-${type}`))
         classes.join(' ');
-    ul.list-group(class=classes)&attributes(attributes)
+    ul.list-group.m-1(class=classes)&attributes(attributes)
         block

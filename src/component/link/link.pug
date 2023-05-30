@@ -1,0 +1,6 @@
+mixin link(href, external=true, ...types)
+    -   
+        let classes = []
+        types.forEach(type => classes.push(`link-${type}`))
+    a(class=classes, href=href, data-navigo=external)
+        block

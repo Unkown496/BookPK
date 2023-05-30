@@ -1,4 +1,5 @@
 // Import all of Bootstrap's JS
+import 'animate.css';
 import "../scss/main.scss";
 import * as bootstrap from 'bootstrap';
 
