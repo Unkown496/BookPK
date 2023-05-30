@@ -10,12 +10,46 @@ mixin header-sidebar
 
                     +list-item(true, false, false, "info")(data-bs-toggle="collapse", data-bs-target="#list-pages-sidebar", type="button").d-flex.p-2
                         span.d-block.w-100.animate__animated#page-current
-                        i.bi.bi-caret-down-fill
-                    .collapse.show#list-pages-sidebar
-                        +list('numbered', 'flush')#navigate-links
-                            each page in allPages
-                                +list-item(data-page=page.link)
-                                    a.link.header-link.text-info(href=page.link, data-navigo)=page.text
+                    .accordion#list-all-pages
+                        each pageItem, topIndexRaw in newPages
+                            - let topIndex = topIndexRaw+1
+                            .accordion-item
+                                h2.accordion-header
+                                    button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+topIndex+"-list-offcanvas")
+                                        =topIndex+". "+pageItem.text
+                                .accordion-collapse.collapse.show(id=topIndex+"-list-offcanvas")
+                                    .accordion-body
+
+                                        if pageItem.items !== undefined
+                                            .list-group
+                                                each item, itemIndexRaw in pageItem.items
+                                                    - let itemIndex = itemIndexRaw+1
+                                                    if item.subItems !== undefined
+                                                        .accordion-item
+                                                            h2.accordion-header(list-parent="false")
+                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-list-offcanvas")
+                                                                 = topIndex+"."+itemIndex+". "+item.text
+                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-list-offcanvas")
+                                                                .accordion-body
+                                                                    .list-group
+                                                                        each subItem, subItemIndexRaw in item.subItems
+                                                                            - let subItemIndex = subItemIndexRaw+1
+                                                                            +list-item(data-page=subItem.path)
+                                                                                = topIndex+"."+itemIndex+"."+subItemIndex+". "
+                                                                                +link(subItem.path, true, "info")
+                                                                                    =subItem.text
+                                                    else
+                                                        +list-item(data-page=item.path)
+                                                            = topIndex+"."+itemIndex+". "
+                                                            +link(item.path, true, "info")
+                                                                =item.text
+                                        else
+                                            p Нет 
+                    //- .collapse.show#list-pages-sidebar
+                    //-     +list('numbered', 'flush')#navigate-links
+                    //-         each page in allPages
+                    //-             +list-item(data-page=page.link)
+                    //-                 a.link.header-link.text-info(href=page.link, data-navigo)=page.text
                 div
                     +list-item
                         p.mb-0 Сделано Мазанченко Дмитрий, Ляхов Тимур, Елизарьев Захар, Чайкин Никита 37Исбпл

@@ -130,6 +130,78 @@ block vars
             }
         ];
         let allPages = pages
+        let newPages = [
+            {
+                text: "Основные",
+                notLink: true,
+                directory: true,
+                items: [
+                    {
+                        text: "Монитор", 
+                        path: "/monitor",
+                        subdirectory: false,
+                    },
+                    {
+                        text: "Системный блок",
+                        path: "/powerSupply",
+                        subdirectory: true,
+                        subItems: [
+                            {
+                                text: "материнская плата",
+                                path: "/motherBoard",
+                            },
+                            {
+                                text: "центральный процессор",
+                                path: "/cp"
+                            },
+                            {
+                                text: "оперативная память",
+                                path: "/ram", 
+                            }, 
+                            {
+                                text: "карты расширений",
+                                path: "/expansionCard"
+                            }
+                        ], 
+                    },
+                    {
+                        text: "Клавиатура", 
+                        path: "/keyboard",
+                    },
+                    {
+                        text: "Мышь", 
+                        path: "/mouse"
+                    }
+                ],
+            }, 
+            {
+                text: "Дополнительные", 
+                notLink: true,
+                directory: true,
+                items: [
+                    {
+                        text: "Модем", 
+                        path: "/modem"
+                    },
+                    {
+                        text: "Принтер", 
+                        path: "/print"
+                    }, 
+                    {
+                        text: "Сканер", 
+                        path: "/scaner"
+                    }, 
+                    {
+                        text: "Флеш-накопитель",
+                        path: "/usb"                        
+                    },
+                    {
+                        text: "Устройство вывода звука", 
+                        path: "/soundDevices"
+                    }
+                ],
+            }
+        ]
         let newPage = [
             {},
             {}
@@ -142,6 +214,45 @@ block main
             +container-fluid    
                 .col-12
                     h3 Главная
+                .col-12
+                    .accordion#list-all-pages
+                        each pageItem, topIndexRaw in newPages
+                            - let topIndex = topIndexRaw+1
+                            .accordion-item
+                                h2.accordion-header
+                                    button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+topIndex+"-list")
+                                        =topIndex+". "+pageItem.text
+                                .accordion-collapse.collapse.show(id=topIndex+"-list")
+                                    .accordion-body
+
+                                        if pageItem.items !== undefined
+                                            .list-group
+                                                each item, itemIndexRaw in pageItem.items
+                                                    - let itemIndex = itemIndexRaw+1
+                                                    if item.subItems !== undefined
+                                                        .accordion-item
+                                                            h2.accordion-header(list-parent="false")
+                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-list")
+                                                                 = topIndex+"."+itemIndex+". "+item.text
+                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-list")
+                                                                .accordion-body
+                                                                    .list-group
+                                                                        each subItem, subItemIndexRaw in item.subItems
+                                                                            - let subItemIndex = subItemIndexRaw+1
+                                                                            +list-item
+                                                                                = topIndex+"."+itemIndex+"."+subItemIndex+". "
+                                                                                +link(subItem.path)
+                                                                                    =subItem.text
+                                                    else
+                                                        +list-item
+                                                            = topIndex+"."+itemIndex+". "
+                                                            +link(item.path)
+                                                                =item.text
+                                        else
+                                            p Нет 
+                                
+
+
                 .col-12
                    p
                         |   Компьютеры, как устройства, состоят из множества компонентов, каждый из которых играет свою роль в обеспечении 

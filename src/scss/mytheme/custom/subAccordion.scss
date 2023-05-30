@@ -1,0 +1,12 @@
+.accordion {
+    &-collapse {
+        & .accordion-body {
+            & .list-group, ul, ol {
+                & .accordion-item {
+                    
+                }
+            }
+
+        }
+    }
+}; 

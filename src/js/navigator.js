@@ -20,11 +20,11 @@ router.on('/', (e) => {
 }, {
     after(match) {
         const currentPageText = document.querySelector("#page-current");
-        const navigateLinks = document.querySelector('#navigate-links');
-        const currentPage = findCurrentPage(match.route.name);
+        //        const navigateLinks = document.querySelector('#navigate-links');
+        // const currentPage = findCurrentPage(match.route.name);
 
-        Array.from(navigateLinks.children).forEach(link => link.classList.remove('active'));
-        navigateLinks.querySelector(`[data-page='/${match.route.name}']`).classList.add('active');
+        // Array.from(navigateLinks.children).forEach(link => link.classList.remove('active'));
+        // navigateLinks.querySelector(`[data-page='/${match.route.name}']`).classList.add('active');
 
         return currentPageText.textContent = 'Главная';
     }
@@ -56,25 +56,28 @@ router.hooks({
         
         const currentPageText = document.querySelector("#page-current");
         const listNavigateLinks = document.querySelector('#page-content').querySelectorAll("[data-link]");
-        const navigateLinks = document.querySelector('#navigate-links');
+        const navigateLinks = document.querySelectorAll('[data-page]');
         const currentPage = findCurrentPage(match.route.name);
-        const currentPageList = document.querySelector('#page-content').querySelector("#current-page");
-        const currentPageCollapse = document.querySelector('#page-content').querySelector("#list-pages");
-        const currentPageHtml = navigateLinks.querySelector(`[data-page='/${match.route.name}']`);
+        // const currentPageList = document.querySelector('#page-content').querySelector("#current-page");
+        // const currentPageCollapse = document.querySelector('#page-content').querySelector("#list-pages");
+        const currentPageHtml = Array.from(navigateLinks).find(link => link.dataset.page === `/${match.route.name}`);
 
-        Array.from(navigateLinks.children).forEach(link => link.classList.remove('active'));
-        Array.from(listNavigateLinks).forEach(link => link.classList.remove('active'));
-        Array.from(listNavigateLinks).find(link => link.dataset.link === `/${match.route.name}`).classList.add('active');
+        navigateLinks.forEach(link => {
+            link.classList.remove("active");
+            if(`/${match.route.name}` === link.dataset.page) link.classList.add("active");
+        });
+        // Array.from(navigateLinks.children).forEach(link => link.classList.remove('active'));
+        // Array.from(listNavigateLinks).forEach(link => link.classList.remove('active'));
+        // Array.from(listNavigateLinks).find(link => link.dataset.link === `/${match.route.name}`).classList.add('active');
         
-        currentPageList.textContent = "test";
-        currentPageList.textContent = document.querySelector('#page-content').querySelector("#page-title").textContent;
+        // currentPageList.textContent = document.querySelector('#page-content').querySelector("#page-title").textContent;
 
-        navigateLinks.querySelector(`[data-page='/${match.route.name}']`).classList.add('active');
+        // navigateLinks.querySelector(`[data-page='/${match.route.name}']`).classList.add('active');
         currentPageText.classList.add('animate__slideInRight');
         currentPageText.addEventListener('animationstart', e => currentPageText.textContent = currentPage.dataset.name);
         currentPageText.addEventListener('animationend', e => currentPageText.classList.remove('animate__slideInRight'));
         
-        currentPageCollapse.classList.remove("show");
+        // currentPageCollapse.classList.remove("show");
         return;
     },
 });

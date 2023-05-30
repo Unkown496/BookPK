@@ -6,3 +6,4 @@ import * as bootstrap from 'bootstrap';
 import "./pageSelector.js";
 import "./sidebar.js";
 import "./navigator.js";
+import "./accordionSpace.js";

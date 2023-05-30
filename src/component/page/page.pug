@@ -7,12 +7,40 @@ mixin page(pathName=undefined, pageName=undefined, title=undefined, contentPages
                     |   Вернутся назад
                 h5#page-title=title
             .col-12
-                .d-grid.gap-2
-                    button.btn.btn-outline-primary(data-bs-toggle="collapse", data-bs-target="#list-pages")#current-page
-                .collapse#list-pages
-                    +list('numbered', 'flush')
-                        each page in contentPages
-                            +list-item(page.active)(data-link=page.link)
-                                a.link.text-info(href=page.link data-navigo)=page.text
+                    .accordion#list-all-pages
+                        each pageItem, topIndexRaw in newPages
+                            - let topIndex = topIndexRaw+1
+                            .accordion-item
+                                h2.accordion-header
+                                    button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+topIndex+"-list-page")
+                                        =topIndex+". "+pageItem.text
+                                .accordion-collapse.collapse.show(id=topIndex+"-list-page")
+                                    .accordion-body
+
+                                        if pageItem.items !== undefined
+                                            .list-group
+                                                each item, itemIndexRaw in pageItem.items
+                                                    - let itemIndex = itemIndexRaw+1
+                                                    if item.subItems !== undefined
+                                                        .accordion-item
+                                                            h2.accordion-header(list-parent="false")
+                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-list-page")
+                                                                 = topIndex+"."+itemIndex+". "+item.text
+                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-list-page")
+                                                                .accordion-body
+                                                                    .list-group
+                                                                        each subItem, subItemIndexRaw in item.subItems
+                                                                            - let subItemIndex = subItemIndexRaw+1
+                                                                            +list-item(data-page=subItem.path)
+                                                                                = topIndex+"."+itemIndex+"."+subItemIndex+". "
+                                                                                +link(subItem.path, true, "info")
+                                                                                    =subItem.text
+                                                    else
+                                                        +list-item(data-page=item.path)
+                                                            = topIndex+"."+itemIndex+". "
+                                                            +link(item.path, true, "info")
+                                                                =item.text
+                                        else
+                                            p Нет 
             .col-12.mt-3
                 block

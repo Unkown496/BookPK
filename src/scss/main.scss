@@ -1,5 +1,16 @@
+
+
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import "bootstrap/scss/bootstrap";
 
+// bootstrap vars
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/utilities";
+
+// self vars
+@import "./abstracts/vars.scss";
+
 // import self styles
 @import "./mytheme/custom/header.scss";
+@import "./mytheme/custom/subAccordion.scss";
