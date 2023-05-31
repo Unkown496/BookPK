@@ -43,7 +43,7 @@ mixin page(pathName=undefined, pageName=undefined, title=undefined, contentPages
                                                                                                     each childSubItem, subItemIndexChild in subItem.subItems
                                                                                                         - let childIndex = subItemIndexChild+1
                                                                                                         +list-item
-                                                                                                            = topIndex+"."+itemIndex+"."+subItemIndex+"."+childIndex+". "+childSubItem.text
+                                                                                                            = topIndex+"."+itemIndex+"."+subItemIndex+"."+childIndex+". "
                                                                                                             +link(childSubItem.path)
                                                                                                                 =childSubItem.text 
                                                                             

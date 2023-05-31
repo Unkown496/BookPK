@@ -5,11 +5,11 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'src', 'data.json'), 'utf-8'));
 
-console.log(data);
 module.exports = {
   mode: 'development',
   entry: './src/js/main.js',
@@ -25,6 +25,15 @@ module.exports = {
     hot: true
   },
   plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "src/assets",
+          to: "assets/[path][name][ext]"
+        }
+      ],
+    }), 
+
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: "./src/index.pug",

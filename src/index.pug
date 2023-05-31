@@ -143,6 +143,10 @@ block vars
             {
                 text: "Дискета",
                 link: "/floppy"
+            },
+            {
+                text: "Тест",
+                path: "/test"
             }
         ];
         let allPages = pages
@@ -319,6 +323,15 @@ block vars
                         path: "/floppy"
                     }
                 ],
+            }, 
+            {
+                text: "В конце", 
+                items: [
+                    {
+                        text: "Тест", 
+                        path: "/test"
+                    }
+                ]
             }
         ]
         let newPage = [
@@ -360,19 +373,19 @@ block main
                                                                             - let subItemIndex = subItemIndexRaw+1  
 
                                                                             if subItem.subItems !== undefined
-                                                                                        .accordion-item
-                                                                                            h2.accordion-header(list-parent="false")
-                                                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-2-list")
-                                                                                                    =topIndex+"."+itemIndex+"."+subItemIndex+". "+subItem.text
-                                                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-2-list")
-                                                                                                .accordion-body
-                                                                                                    .list-group
-                                                                                                        each childSubItem, subItemIndexChild in subItem.subItems
-                                                                                                            - let childIndex = subItemIndexChild+1
-                                                                                                            +list-item
-                                                                                                                = topIndex+"."+itemIndex+"."+subItemIndex+"."+childIndex+". "+childSubItem.text
-                                                                                                                +link(childSubItem.path)
-                                                                                                                    =childSubItem.text 
+                                                                                .accordion-item
+                                                                                    h2.accordion-header(list-parent="false")
+                                                                                        button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-2-list")
+                                                                                            =topIndex+"."+itemIndex+"."+subItemIndex+". "+subItem.text
+                                                                                    .accordion-collapse.collapse.show(id=itemIndex+"-sub-2-list")
+                                                                                        .accordion-body
+                                                                                            .list-group
+                                                                                                each childSubItem, subItemIndexChild in subItem.subItems
+                                                                                                    - let childIndex = subItemIndexChild+1
+                                                                                                    +list-item
+                                                                                                        =topIndex+"."+itemIndex+"."+subItemIndex+"."+childIndex+". "
+                                                                                                        +link(childSubItem.path)
+                                                                                                            =childSubItem.text 
                                                                                
                                                                             else
                                                                                 +list-item
@@ -1439,6 +1452,11 @@ block main
             p Существовали также магнитооптические диски (МО), которые представляли собой жесткий полимерный диск. Для чтения данных с таких дисков использовался лазер, а для записи информации применялось комбинированное воздействие лазера (для нагрева участка поверхности) и неподвижного магнита (для перемагничивания информационного слоя). Такие носители не были полностью магнитными, но использовали картриджи, напоминающие по форме дискеты.
             p Дискеты обычно имели возможность блокировки записи на них. Элемент конструкции (вырез или механический переключатель) при установке дискеты в дисковод воздействовал на соответствующий датчик, отключая схемы, отвечающие за запись данных на дискету. Это позволяло защитить данные, записанные на дискете, от случайного изменения или удаления.
             p С появлением более современных и емких носителей данных, таких как флеш-накопители, жесткие диски и облачное хранилище, использование дискет существенно сократилось. Однако дискеты остаются историческим символом компьютерной эпохи, в которой они играли важную роль в передаче и хранении информации.
+        +page("test", "В конце", "В конце", pages)
+            p После прочтения всех тем, пройдите тест для закрепления прочитанного
+            a(download, href="./assets/КОМП.mtf") 
+                i.bi.bi-file-arrow-down-fill
+                | Тест
         //- +page("text", "Какое-то название", "Какое-то текст", pages)
 
         //-     p.text-danger test
