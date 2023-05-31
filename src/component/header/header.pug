@@ -15,9 +15,9 @@ mixin header-sidebar
                             - let topIndex = topIndexRaw+1
                             .accordion-item
                                 h2.accordion-header
-                                    button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+topIndex+"-list-offcanvas")
+                                    button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+topIndex+"-list")
                                         =topIndex+". "+pageItem.text
-                                .accordion-collapse.collapse.show(id=topIndex+"-list-offcanvas")
+                                .accordion-collapse.collapse.show(id=topIndex+"-list")
                                     .accordion-body
 
                                         if pageItem.items !== undefined
@@ -27,24 +27,45 @@ mixin header-sidebar
                                                     if item.subItems !== undefined
                                                         .accordion-item
                                                             h2.accordion-header(list-parent="false")
-                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-list-offcanvas")
+                                                                button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-list")
                                                                  = topIndex+"."+itemIndex+". "+item.text
-                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-list-offcanvas")
+                                                            .accordion-collapse.collapse.show(id=itemIndex+"-sub-list")
                                                                 .accordion-body
                                                                     .list-group
                                                                         each subItem, subItemIndexRaw in item.subItems
-                                                                            - let subItemIndex = subItemIndexRaw+1
-                                                                            +list-item(data-page=subItem.path)
-                                                                                = topIndex+"."+itemIndex+"."+subItemIndex+". "
-                                                                                +link(subItem.path, true, "info")
-                                                                                    =subItem.text
+                                                                            - let subItemIndex = subItemIndexRaw+1  
+
+                                                                            if subItem.subItems !== undefined
+                                                                                .accordion-item
+                                                                                    h2.accordion-header(list-parent="false")
+                                                                                        button.accordion-button(data-bs-toggle="collapse", data-bs-target="#"+itemIndex+"-sub-2-list")
+                                                                                            =topIndex+"."+itemIndex+"."+subItemIndex+". "+subItem.text
+                                                                                    .accordion-collapse.collapse.show(id=itemIndex+"-sub-2-list")
+                                                                                        .accordion-body
+                                                                                            .list-group
+                                                                                                each childSubItem, subItemIndexChild in subItem.subItems
+                                                                                                    - let childIndex = subItemIndexChild+1
+                                                                                                    +list-item
+                                                                                                        = topIndex+"."+itemIndex+"."+subItemIndex+"."+childIndex+". "
+                                                                                                        +link(childSubItem.path)
+                                                                                                            =childSubItem.text
+                                                                            else
+                                                                                +list-item
+                                                                                    = topIndex+"."+itemIndex+"."+subItemIndex+". "
+                                                                                    +link(subItem.path)
+                                                                                        =subItem.text
                                                     else
-                                                        +list-item(data-page=item.path)
-                                                            = topIndex+"."+itemIndex+". "
-                                                            +link(item.path, true, "info")
+                                                        if item.simpleText
+                                                            +list-item.parent
                                                                 =item.text
+                                                        else
+                                                            +list-item
+                                                                = topIndex+"."+itemIndex+". "
+                                                                +link(item.path)
+                                                                    =item.text
                                         else
                                             p Нет 
+                     
                     //- .collapse.show#list-pages-sidebar
                     //-     +list('numbered', 'flush')#navigate-links
                     //-         each page in allPages

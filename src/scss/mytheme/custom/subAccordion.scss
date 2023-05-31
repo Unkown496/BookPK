@@ -10,3 +10,15 @@
         }
     }
 }; 
+.list {
+    &-item {
+        &.parent {
+            & ~ .list-item {
+                margin: {
+                    left: map-get($spacers, 2);
+                    right: map-get($spacers, 2);
+                }
+            };
+        };
+    };
+}
